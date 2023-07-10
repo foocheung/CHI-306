@@ -48,7 +48,7 @@ seur1 <- run_rna(seur1)
 # Load reference dataset
 reference_file <- args$'--reference-file'
 
-runTransferLearning(reference_file, seur1)
+seur1 <- runTransferLearning(reference_file, seur1)
 
 # Subset based on HTO counts
 seur1 <- subset(seur1, subset = nCount_HTO > as.numeric(args$'--threshold'))
