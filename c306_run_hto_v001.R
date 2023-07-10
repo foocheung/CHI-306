@@ -46,7 +46,7 @@ performMitoAnalysis(seur1)
 seur1 <- run_rna(seur1)
 
 # Load reference dataset
-reference_file <- LoadH5Seurat(args$'--reference-file')
+reference_file <- args$'--reference-file'
 
 runTransferLearning(reference_file, seur1)
 
