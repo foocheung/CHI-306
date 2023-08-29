@@ -54,6 +54,14 @@ run_wnn <-function(seur_obj) {
 
 
 
+## Add annotation like this:
+## library(SingleCellExperiment)
+## library(Seurat)
+## library(SingleR)
+## seur$mono1<-monaco_ann1(seur)
+
+
+
 atlas_ann <-function(seur_obj) {
 
 
