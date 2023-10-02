@@ -17,7 +17,33 @@ run_rna <- function(seur_obj) {
 
 }
 
+run_rna_harmony <- function(seur_obj) {
+  # seed(1234)
+  DefaultAssay(seur_obj) <- 'RNA'
+  seur_obj <- SCTransform(seur_obj)
+  seur_obj <- RunPCA(seur_obj,reduction.name = 'pca_h')
+  seur_obj <- FindNeighbors(seur_obj,"harmony", dims = 1:30)
+  seur_obj <- FindClusters(seur_obj, resolution = 0.8, algorithm=3, verbose = FALSE)
+  
+  seur_obj <- RunUMAP(seur_obj, reduction = 'harmony', dims = 1:30, assay = 'RNA', 
+                      reduction.name = 'rna.umap.harmony', reduction.key = 'rnaUMAP.harmony_')
+  
+}
 
+run_cite_harmony <-function(seur_obj) {
+  #seed(1234)
+  DefaultAssay(seur_obj) <- 'CITE'
+  VariableFeatures(seur_obj) <- rownames(seur_obj[["CITE"]])
+  
+  seur_obj <- ScaleData(seur_obj)
+  seur_obj <- RunPCA(seur_obj,reduction.name = 'apca_h')
+  seur_obj <- FindNeighbors(seur_obj, "harmony",dims = 1:min(length(rownames(seur_obj[['CITE']]))-1, 20), reduction = "apca")
+  
+  seur_obj <- FindClusters(seur_obj, graph.name = "CITE_snn", algorithm = 3, verbose = FALSE)
+  seur_obj <- RunUMAP(seur_obj, reduction = 'harmony', dims = 1:30, assay = 'ADT', 
+                      reduction.name = 'adt.umap.harmony', reduction.key = 'adtUMAP.harmony_')
+  
+}
 
 run_cite <-function(seur_obj) {
   #seed(1234)
@@ -37,6 +63,21 @@ seur_obj <- RunUMAP(seur_obj, reduction = 'apca', dims = 1:30, assay = 'ADT',
 
 
 
+
+run_wnn_harmony <-function(seur_obj) {
+  
+  #  seed(1234)
+  seur_obj <- FindMultiModalNeighbors(
+    seur_obj, reduction.list = list("pca_h", "apca_h"), 
+    dims.list = list(1:20, 1:20), modality.weight.name = c("intRNA.weight", "intADT.weight"))
+  
+  seur_obj <- FindClusters(seur_obj, graph.name = "wsnn", verbose = FALSE)
+  seur_obj <- RunUMAP(seur_obj, nn.name = "weighted.nn", reduction.name = "wnn.umap.harmony", reduction.key = "wnnUMAP.harmony_")
+  
+  
+  
+}
+
 run_wnn <-function(seur_obj) {
  
 #  seed(1234)
@@ -51,14 +92,6 @@ run_wnn <-function(seur_obj) {
   
 }
 
-
-
-
-## Add annotation like this:
-## library(SingleCellExperiment)
-## library(Seurat)
-## library(SingleR)
-## seur$mono1<-monaco_ann1(seur)
 
 
 
