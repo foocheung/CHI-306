@@ -16,11 +16,7 @@ library(dsb)
 library(docopt)
 library(future)
 library(devtools)
-#install_github('foocheung/sc')
-#library(sc)
-#remove.packages('sc')
-#unloadNamespace('sc')
-#install_github('foocheung/sc')
+
 
 # Define the command-line interface using docopt
 doc <- "Usage:
@@ -28,10 +24,10 @@ doc <- "Usage:
                   
 Options:
   -h --help     Show this help message and exit.
-  --lanes=<lanes>   Specify the range of lanes (e.g., 18:21).
-  --rawdir=<rawdir>   Specify the output file name (e.g., output.RDS).
-  --demuxdir=<demuxdir>
-  --save_name=<save_name>
+  --lanes=<lanes>   Specify the range of lanes (e.g., 1,2,3,5).
+  --rawdir=<rawdir>   Specify the input Directory (e.g., /DATA/).
+  --demuxdir=<demuxdir> Specify the input DEMUX Directory (e.g., /DEMUX/).
+  --save_name=<save_name> Specify the output Directory (e.g., OUTPUT).
 "
 
 args <- docopt(doc)
