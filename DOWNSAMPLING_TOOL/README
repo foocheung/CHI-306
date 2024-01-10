@@ -1,10 +1,8 @@
-
-I created this "Download sampling shiny app" last year for this task. 
-It takes as input the data created from the merged cell ranger output file "306-34SF.csv"
-Upload this into the app
-The user selects which library to be used for downsampling "select Gene Expression"
-user selects which metric name for creating the Scaling Factor "select mean reads per cell"
-user selects the start and end cols
-user select the column to mutiple the scaling factor by "user select Number of Reads"
-
-Download results "mean_reads_per_cell.xlsx"
+I developed the "Download Sampling Shiny App" for this assignment last year. 
+The app requires input data generated from the merged cell ranger output file named "306-34SF.csv." 
+Users need to upload this file to the app. 
+Following that, they can choose the library for downsampling by selecting "Gene Expression," 
+pick the metric name for creating the Scaling Factor (e.g., "mean reads per cell"), 
+specify start and end columns, and choose the column to multiply the scaling factor by, 
+which is done by selecting "Number of Reads." 
+Finally, users can download the results in the "mean_reads_per_cell.xlsx" file.
