@@ -1,0 +1,92 @@
+﻿category,library_type,metric_name,RUN_23_306_3_1,RUN_23_306_3_2,RUN_23_306_3_3,RUN_23_306_3_4,RUN_23_306_3_5,RUN_23_306_3_6_v3
+Cells,Antibody Capture,Cells,485,2628,3809,443,2593,12067
+Cells,Antibody Capture,Mean antibody reads usable per cell,10872,14752,12459,14325,15371,14244
+Cells,Antibody Capture,Median UMI counts per cell,4460,5111,5056,5602,5763,5790
+Cells,Gene Expression,Cells,485,2628,3809,443,2593,12067
+Cells,Gene Expression,Confidently mapped reads in cells,85.34,90.58,86.85,84.12,95.88,92.41
+Cells,Gene Expression,Median UMI counts per cell,5936,6116,7428,4322,4738,6680
+Cells,Gene Expression,Median genes per cell,2093,2182,2521,1619,1721,2418
+Cells,Gene Expression,Median reads per cell,50687,44432,46813,61590,400803,56495
+Cells,Gene Expression,Total genes detected,18668,23607,24416,17473,23650,27722
+Cells,VDJ B,Cells with productive IGH contig,89.29,86.08,93.9,82.9,83.39,88.47
+Cells,VDJ B,Cells with productive IGK contig,58.04,59.8,60.07,56.67,60.41,60.74
+Cells,VDJ B,Cells with productive IGL contig,44.87,44.44,46.83,44.03,41.31,42.05
+Cells,VDJ B,"Cells with productive V-J spanning (IGK, IGH) pair",51.79,51.46,56.48,46.14,50.51,53.48
+Cells,VDJ B,"Cells with productive V-J spanning (IGL, IGH) pair",40.4,38.85,44.32,37.47,34.6,37.78
+Cells,VDJ B,Cells with productive V-J spanning pair,87.95,84.81,93.01,81.97,82.17,87.21
+Cells,VDJ B,Estimated number of cells,448,2363,3231,427,2445,11067
+Cells,VDJ B,Median IGH UMIs per Cell,19,18,11,10,11,21
+Cells,VDJ B,Median IGK UMIs per Cell,33,34,27,23,24,35
+Cells,VDJ B,Median IGL UMIs per Cell,31,30,24,25,22,33
+Cells,VDJ B,Number of cells with productive V-J spanning pair,394,2004,3005,350,2009,9652
+Cells,VDJ B,Paired clonotype diversity,440.14,2256.07,2011.83,415.33,2184.15,8026.64
+Library,Antibody Capture,Number of reads,11037941,65623111,75101906,12040916,60331421,285286567
+Library,Antibody Capture,Number of short reads skipped,0,0,0,0,0,0
+Library,Antibody Capture,Q30 RNA read,75.2,75.3,75.3,75.3,75.3,75.5
+Library,Antibody Capture,Q30 UMI,93.5,93.5,93.2,94.2,93.8,93.5
+Library,Antibody Capture,Q30 barcodes,94.9,94.7,94.6,94.9,94.8,94.7
+Library,Antibody Capture,Estimated number of cells,485,2628,3809,443,2593,12067
+Library,Antibody Capture,Fraction antibody reads,96.09,96.75,96.78,95.73,96.85,96.72
+Library,Antibody Capture,Fraction antibody reads in aggregate barcodes,4.7,0.63,0,0.53,0.1,0.09
+Library,Antibody Capture,Fraction antibody reads usable,47.77,59.08,63.19,52.7,66.06,60.25
+Library,Antibody Capture,Fraction reads in cells,50.76,62.27,66.59,56.17,69.56,63.55
+Library,Antibody Capture,Fraction unrecognized antibody,3.91,3.25,3.22,4.27,3.15,3.28
+Library,Antibody Capture,Mean reads per cell,22759,24971,19717,27180,23267,23642
+Library,Antibody Capture,Sequencing saturation,46.58,50.57,46.54,49.49,52.6,50.77
+Library,Antibody Capture,Valid UMIs,100,100,100,100,100,100
+Library,Antibody Capture,Valid barcodes,97.2,98.19,98.19,96.9,98.16,98.15
+Library,Gene Expression,Number of reads,54856166,216787663,307404975,59461431,1714446220,1171614837
+Library,Gene Expression,Number of short reads skipped,0,0,0,0,0,0
+Library,Gene Expression,Q30 RNA read,89.2,91.3,92.4,89.6,92.3,93.8
+Library,Gene Expression,Q30 UMI,94.2,94.3,94.6,94.5,94.1,95
+Library,Gene Expression,Q30 barcodes,94.5,94.6,94.7,94.7,94.4,95.2
+Library,Gene Expression,Confidently mapped antisense,4.11,6.29,6.12,4.79,5.64,7.61
+Library,Gene Expression,Confidently mapped reads in cells,85.34,90.58,86.85,84.12,95.88,92.41
+Library,Gene Expression,Confidently mapped to exonic regions,64.48,70.3,69.25,67.55,74.12,67.06
+Library,Gene Expression,Confidently mapped to genome,75.31,83.98,85.78,77.74,84.91,82.76
+Library,Gene Expression,Confidently mapped to intergenic regions,3.98,4.98,4.94,4.23,4.48,5
+Library,Gene Expression,Confidently mapped to intronic regions,6.86,8.7,11.59,5.96,6.32,10.7
+Library,Gene Expression,Confidently mapped to transcriptome,66.65,72.07,74.01,68.14,74.17,69.52
+Library,Gene Expression,Estimated number of cells,485,2628,3809,443,2593,12067
+Library,Gene Expression,Mapped to genome,83.45,92.38,93.52,84.05,92.7,94.16
+Library,Gene Expression,Mean reads per cell,113105,82492,80705,134224,661182,97092
+Library,Gene Expression,Number of reads in the library,54856166,216787663,307404975,59461431,1714446220,1171614837
+Library,Gene Expression,Sequencing saturation,85.54,82.27,80.01,91.51,98.41,84.66
+Library,Gene Expression,Valid UMIs,94.78,99.06,99.44,93.43,98.61,99.8
+Library,Gene Expression,Valid barcodes,92.93,92.94,93.05,92.19,92.97,91.98
+Library,VDJ B,Number of reads,10481113,35948354,49154906,9433597,43801530,185215106
+Library,VDJ B,Number of short reads skipped,0,0,0,0,0,0
+Library,VDJ B,Q30 RNA read,93.4,93.7,93.4,92.4,93.5,92.6
+Library,VDJ B,Q30 UMI,92.6,92.9,93.9,93.4,93.4,93.5
+Library,VDJ B,Q30 barcodes,93.5,93.2,93.9,93.8,94.1,93.9
+Library,VDJ B,Estimated number of cells,448,2363,3231,427,2445,11067
+Library,VDJ B,Fraction reads in cells,97.05,94.45,80.43,90.13,98.28,96.76
+Library,VDJ B,Mean reads per cell,23395,15213,15214,22093,17915,16736
+Library,VDJ B,Mean used reads per cell,5285,4115,6125,4731,3975,4192
+Library,VDJ B,Reads mapped to IGH,27.11,25.27,21.42,20.21,23.4,28.34
+Library,VDJ B,Reads mapped to IGK,28.54,44.67,43.99,19.67,45.75,39.42
+Library,VDJ B,Reads mapped to IGL,40.14,26.13,26.25,52.89,27.02,28.07
+Library,VDJ B,Reads mapped to any V(D)J gene,95.78,96.08,91.67,92.78,96.18,95.83
+Library,VDJ B,Valid barcodes,97.92,97.82,96.34,97.65,98,97.76
+Cells,VDJ T,Cells with productive TRA contig,,,,,,
+Cells,VDJ T,Cells with productive TRB contig,,,,,,
+Cells,VDJ T,"Cells with productive V-J spanning (TRA, TRB) pair",,,,,,
+Cells,VDJ T,Cells with productive V-J spanning pair,,,,,,
+Cells,VDJ T,Estimated number of cells,,,,,,
+Cells,VDJ T,Median TRA UMIs per Cell,,,,,,
+Cells,VDJ T,Median TRB UMIs per Cell,,,,,,
+Cells,VDJ T,Number of cells with productive V-J spanning pair,,,,,,
+Cells,VDJ T,Paired clonotype diversity,,,,,,
+Library,VDJ T,Number of reads,,,,,,
+Library,VDJ T,Number of short reads skipped,,,,,,
+Library,VDJ T,Q30 RNA read,,,,,,
+Library,VDJ T,Q30 UMI,,,,,,
+Library,VDJ T,Q30 barcodes,,,,,,
+Library,VDJ T,Estimated number of cells,,,,,,
+Library,VDJ T,Fraction reads in cells,,,,,,
+Library,VDJ T,Mean reads per cell,,,,,,
+Library,VDJ T,Mean used reads per cell,,,,,,
+Library,VDJ T,Reads mapped to TRA,,,,,,
+Library,VDJ T,Reads mapped to TRB,,,,,,
+Library,VDJ T,Reads mapped to any V(D)J gene,,,,,,
+Library,VDJ T,Valid barcodes,,,,,,
