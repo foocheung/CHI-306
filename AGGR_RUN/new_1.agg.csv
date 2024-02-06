@@ -1,0 +1,5 @@
+sample_id,molecule_h5
+multi_config_1,multi_config_1/outs/per_sample_outs/multi_config_1/count/sample_molecule_info.h5
+multi_config_2,multi_config_2/outs/per_sample_outs/multi_config_2/count/sample_molecule_info.h5
+multi_config_3,multi_config_3/outs/per_sample_outs/multi_config_3/count/sample_molecule_info.h5
+multi_config_6,multi_config_6/outs/per_sample_outs/multi_config_6/count/sample_molecule_info.h5
