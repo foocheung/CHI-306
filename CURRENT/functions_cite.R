@@ -331,9 +331,12 @@ seur_obj<- as.SingleCellExperiment(seur_obj)
 
 monaco.main <- SingleR(test = seur_obj,assay.type.test = 1,ref = monaco.ref,labels = monaco.ref$label.main)
 
-seur_obj$monaco.main <- monaco.main$pruned.labels
+singleR_labels <- monaco.main$pruned.labels
+t <- table(singleR_labels)
+other <- names(t)[t < 3]
+singleR_labels[singleR_labels %in% other] <- NA
 
-
+seur_obj$monaco.main <- singleR_labels
 }
 
 
@@ -344,11 +347,14 @@ monaco_ann2 <-function(seur_obj) {
   monaco.ref <- celldex::MonacoImmuneData()
   seur_obj<- as.SingleCellExperiment(seur_obj)
   
-    monaco.fine <- SingleR(test = seur_obj,assay.type.test = 1,ref = monaco.ref,labels = monaco.ref$label.fine)
+  monaco.fine <- SingleR(test = seur_obj,assay.type.test = 1,ref = monaco.ref,labels = monaco.ref$label.fine)
   
+  singleR_labels <- monaco.fine$pruned.labels
+  t <- table(singleR_labels)
+  other <- names(t)[t < 3]
+  singleR_labels[singleR_labels %in% other] <- NA
   
-  seur_obj$monaco.fine <- monaco.fine$pruned.labels
-  
+  seur_obj$monaco.fine <- singleR_labels  
 }
 
 
