@@ -11,4 +11,4 @@ chi-306_2.xlsx
 Processing code
 Highlevel code for filtering for each lane, for more detailed analysis eg NOTE some lanes has ADT, some lanes are pools of different tisues, some has HTOs as custom features some are as antibodies see xlsx sheet.
 
-lane 17 is missing and lane 19 had no BCR so cellranger multi fails can re-run without BCR data is needed.
+lane 17 is missing and lane 20 had no BCR so cellranger multi fails can re-run without BCR data is needed.
