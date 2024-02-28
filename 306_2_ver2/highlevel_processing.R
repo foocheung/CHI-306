@@ -45,12 +45,25 @@ for(i in 1:length(Lanes)){
   SeuratObj[[i]] <- CreateSeuratObject(counts =
                                          data[[i]]$'Gene Expression', assay = "RNA",
                                        min.feature = 20)
+  
+  
+  if (i < 9){
   SeuratObj[[i]][["CITE"]] <- CreateAssayObject(counts = data[[i]]$`Antibody Capture`[1:24,colnames(SeuratObj[[i]])])
+  SeuratObj[[i]][["HTO"]] <- CreateAssayObject(counts =  data[[i]]$`Custom`[1:2,colnames(SeuratObj[[i]])])
+  }
+  else if (i > 8 & i < 22){
+    SeuratObj[[i]][["CITE"]] <- CreateAssayObject(counts = data[[i]]$`Antibody Capture`[1:27,colnames(SeuratObj[[i]])])
+  }
+    else{
+      SeuratObj[[i]][["CITE"]] <- CreateAssayObject(counts = data[[i]]$`Antibody Capture`[1:145,colnames(SeuratObj[[i]])])
+      }
+  
+  
+  
   SeuratObj[[i]] <- RenameCells(SeuratObj[[i]],
                                 new.names = paste(substr(colnames(SeuratObj[[i]]),
                                                          start = 1, stop = 17),Lanes[[i]],"_306_2", sep = ""))
-  SeuratObj[[i]]$Batch  <- rep("306_2",
-                               length(colnames(SeuratObj[[i]])))
+  SeuratObj[[i]]$Batch  <- rep("306_2",length(colnames(SeuratObj[[i]])))
   SeuratObj[[i]]$Lane <- rep(Lanes[i],length(colnames(SeuratObj[[i]])))
 }
 
@@ -97,6 +110,7 @@ for(i in 1:length(ObjList)){
 }
 
 
+
 for(i in 1:length(ObjList_SNG)){
   ObjList_SNG[[i]][["percent.mito"]] <- PercentageFeatureSet(object = ObjList_SNG[[i]], 
                                                              pattern = "^MT-")
@@ -117,6 +131,6 @@ VlnPlot(merged_obj, features= c("nCount_RNA","nCount_CITE", "nFeature_RNA","perc
         group.by = "Lane",pt.size = 0, ncol = 2)
 ggsave("merged.pdf")
 
+saveRDS(merged_obj,"306_2_merge_with_SNP_v1.rds")
 
-
-saveRDS(SeuratObj,"306_2_merge_with_SNP.rds")
+saveRDS(ObjList_SNG,"306_2_ObjList_SNG_with_SNP_v1.rds")
