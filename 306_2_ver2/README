@@ -19,3 +19,7 @@ NOTE some lanes has ADT, some lanes are pools of different tisues, some has HTOs
 So for first pass analysis I tried using the sae method for filtering all lanes.
 
 lane 17 is missing and lane 20 had no BCR so cellranger multi fails can re-run without BCR data is needed.
+
+
+rds files:
+/hpcdata/scratch/cheungf/CHI_306/306_2_v2/RDS
