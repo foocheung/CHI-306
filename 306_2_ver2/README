@@ -9,6 +9,13 @@ Cellranger Statistics:
 chi-306_2.xlsx
 
 Processing code
-Highlevel code for filtering for each lane, for more detailed analysis eg NOTE some lanes has ADT, some lanes are pools of different tisues, some has HTOs as custom features some are as antibodies see xlsx sheet.
+Highlevel code for filtering for each lane, 
+filtered:
+ ObjList_SNG[[i]] = subset(ObjList_SNG[[i]], subset = nFeature_RNA > 200 &nFeature_RNA < 5000 & nCount_RNA < 30000 & percent)
+
+For more detailed analysis see R script
+
+NOTE some lanes has ADT, some lanes are pools of different tisues, some has HTOs as custom features some are as antibodies see xlsx stats sheet. 
+So for first pass analysis I tried using the sae method for filtering all lanes.
 
 lane 17 is missing and lane 20 had no BCR so cellranger multi fails can re-run without BCR data is needed.
