@@ -1,3 +1,4 @@
+setwd("/Users/cheungf/Library/CloudStorage/OneDrive-NationalInstitutesofHealth/R/TCR_306_2")
 library(scRepertoire)
 library(Seurat)
 
@@ -14,12 +15,24 @@ for (i in 9:16) {
   immdata_10x_VDJ[[i - 8]] <- read.csv(file_path, colClasses = colclass_example)
   
   # Match column names
-  ind_match <- which((colnames(immdata_10x_VDJ[[i - 8]]) %in% colnames(contig_list[[i - 8]])) == TRUE)
+  ind_match <- which((colnames(immdata_10x_VDJ[[i - 8]]) %in% colnames(contig_list[[1]])) == TRUE)
   immdata_10x_VDJ[[i - 8]] <- immdata_10x_VDJ[[i - 8]][, c(ind_match)]
 }
 
 # Combine data
-combinedVDJ <- combineTCR(immdata_10x_VDJ, samples = c("CD4_Human", "CD4_Human","CD4_Human", "CD4_Human","CD8_Human", "CD8_Human","CD8_Human", "CD8_Human"), ID = as.character(9:16))
+combinedVDJ <- combineTCR(immdata_10x_VDJ, 
+                          samples = c("CD4_Human", "CD4_Human","CD4_Human", "CD4_Human","CD8_Human", "CD8_Human","CD8_Human", "CD8_Human"), 
+                          ID = as.character(9:16)) #, removeMulti = TRUE,removeNA = TRUE)
+                        #,
+                        #  removeNA = FALSE, 
+                        #  removeMulti = FALSE, 
+                        #  removeNA = TRUE, 
+                        #  removeMulti = TRUE, 
+                        #  filterMulti = TRUE)
+                          
+
+
+
 
 # Modify barcodes
 for (i in 1:length(combinedVDJ)) {
@@ -35,10 +48,10 @@ for (i in 1:length(combinedVDJ)) {
 
 library(tidyverse)
 
-seur<-readRDS("306_2_merge_with_SNP_v1.rds")
+seur1<-readRDS("306_2_merge_with_SNP_v1.rds")
 
 
-seur <-  subset(seur, subset = Lane %in% 9:16)
+seur <-  subset(seur1, subset = Lane %in% 9:16)
 
 seur@meta.data<-seur@meta.data %>%
   mutate(
@@ -86,9 +99,6 @@ cell.names[ind_group2] <- paste0("CD8_Human_", cell.names[ind_group2])
 
 cell.names.matrix<-cell.names
 
-#cell.names.matrix[grep("7",cell.names.matrix)]<-gsub("CD4_Human_","CD4Tcells_7_",cell.names.matrix[grep("7",cell.names.matrix)])
-#cell.names.matrix[grep("8",cell.names.matrix)]<-gsub("CD8_Human_","CD8Tcells_8_",cell.names.matrix[grep("8",cell.names.matrix)])
-
 cell.names.matrix[grep("9",cell.names.matrix)]<-gsub("CD4_Human_","CD4_Human_9_",cell.names.matrix[grep("9",cell.names.matrix)])
 cell.names.matrix[grep("10",cell.names.matrix)]<-gsub("CD4_Human_","CD4_Human_10_",cell.names.matrix[grep("10",cell.names.matrix)])
 cell.names.matrix[grep("11",cell.names.matrix)]<-gsub("CD4_Human_","CD4_Human_11_",cell.names.matrix[grep("11",cell.names.matrix)])
@@ -110,6 +120,10 @@ cell.names.matrix[grep("-16",cell.names.matrix)]<-gsub("-16_306_2","",cell.names
 
 seur<-RenameCells(seur, new.names = cell.names.matrix)
 
+
+
+######CHECK THE JOIN IS RIGHT HERE MIGHT BE WRONG!!!!!
+#################
 combo<-combineExpression(combinedVDJ, seur,cloneCall="aa", group.by = "none")
 
 combo@meta.data$BEST.GUESS=  gsub("outdir/Manthiram_|_S.*" , '',perl=TRUE,combo@meta.data$BEST.GUESS)
@@ -127,19 +141,41 @@ combo@meta.data$Type_Group<-gsub(".*T10.*Human","CONT",combo@meta.data$Type_Grou
 Human_CD4_integrated <- subset(combo, orig.ident == "Human_CD4_sc")
 Human_CD8_integrated <- subset(combo, orig.ident == "Human_CD8_sc")
 
-
+Human_CD4_integrated_sc <- as.SingleCellExperiment(Human_CD4_integrated)
 Human_CD8_integrated_sc <- as.SingleCellExperiment(Human_CD8_integrated)
 ##
 #devtools::install_github("ncborcherding/scRepertoire@v1")
 #library(scRepertoire)
 #newList_Type_Group_CD8 <-expression2List(Human_CD8_integrated_sc, split.by =  "Type_Group")
 
-p1<-clonalOverlap(Human_CD8_integrated_sc,group.by = "Type_Group", cloneCall = "aa", method = "morisita")
+p1<-clonalOverlap(Human_CD4_integrated_sc,group.by = "Type_Group", cloneCall = "aa", method = "morisita",chain="TRB")
+
+p1B<-clonalOverlap(Human_CD4_integrated_sc,group.by = "BEST.GUESS", cloneCall = "aa", method = "raw",chain="TRB")
+
+p1C<-scRepertoire::clonalQuant(Human_CD4_integrated_sc, cloneCall="gene+nt", scale = T, group.by = "BEST.GUESS")
+
+p1D<-scRepertoire::clonalQuant(Human_CD4_integrated_sc, cloneCall="gene+nt", scale = F, group.by = "BEST.GUESS")
+
+p1E<-clonalAbundance(Human_CD4_integrated_sc, cloneCall = "aa", scale = F, group.by = "BEST.GUESS")
 
 
-Human_CD4_integrated_sc <- as.SingleCellExperiment(Human_CD4_integrated)
+p1F<-clonalCompare(Human_CD4_integrated_sc, 
+              top.clones = 50, 
+              samples = NULL, 
+              cloneCall="aa", 
+              graph = "alluvial", group.by = "BEST.GUESS", exportTable=F, chain="TRB") + theme(legend.position="none")
 
-p2<-clonalOverlap(Human_CD4_integrated_sc,group.by = "Type_Group", cloneCall = "aa", method = "morisita")
+p1G<-clonalCompare(Human_CD4_integrated_sc, 
+              top.clones = 50, 
+              samples = NULL, 
+              cloneCall="aa", 
+              graph = "alluvial", group.by = "Type_Group", exportTable=F, chain="TRB") + theme(legend.position="none")
+
+
+##p1F<-clonalLength(Human_CD4_integrated_sc, cloneCall="aa", chain = "both", group.by = "Type_Group") 
+
+
+#p2<-clonalOverlap(Human_CD8_integrated_sc,group.by = "Type_Group", cloneCall = "aa", method = "raw")#
 
 #clonalOverlap(Human_CD4_integrated_sc,group.by = "Type_Group", cloneCall = "aa", method = "morisita",exportTable = TRUE)
 #CONT_CD4_sc INF_CD4_sc VACC_CD4_sc
@@ -153,7 +189,98 @@ p2<-clonalOverlap(Human_CD4_integrated_sc,group.by = "Type_Group", cloneCall = "
 #INF_CD8_sc           NA          NA 0.000216883
 #VACC_CD8_sc          NA          NA          NA
 
-pdf("clonalOverlap.pdf")
-gridExtra::grid.arrange(p1,p2)
-dev.off()
+#pdf("clonalOverlap.pdf")
+#gridExtra::grid.arrange(p1,p2)
+#dev.off()
 
+
+
+p3<-clonalHomeostasis(Human_CD4_integrated_sc, 
+                  cloneCall = "gene", group.by = "Type_Group")
+
+
+p4<-clonalProportion(Human_CD4_integrated_sc, 
+                 cloneCall = "gene",  group.by = "Type_Group")
+
+
+p5<-percentAA(Human_CD4_integrated_sc, 
+          chain = "TRB", 
+          aa.length = 20, group.by = "Type_Group")
+
+p6<-positionalEntropy(Human_CD4_integrated_sc, 
+                chain = "TRB", 
+                aa.length = 20, group.by = "Type_Group")
+
+
+p7<-positionalProperty(Human_CD4_integrated_sc[c(1,2)], 
+                chain = "TRB", 
+                aa.length = 20, 
+                method = "Atchley",  group.by = "Type_Group") 
+
+
+p8<-vizGenes(Human_CD4_integrated_sc, 
+         x.axis = "TRBV",
+         y.axis = NULL,
+         plot = "barplot",  
+         scale = TRUE,  group.by = "Type_Group")
+
+
+
+p9<-vizGenes(Human_CD4_integrated_sc, 
+         x.axis = "TRBV",
+         y.axis = "TRBJ",
+         plot = "heatmap",  
+         scale = TRUE,  group.by = "Type_Group")
+
+
+
+df.genes <-percentGenes(Human_CD4_integrated_sc, 
+                        chain = "TRB", 
+                        gene = "Vgene", group.by = "Type_Sample", 
+                         exportTable = TRUE)
+
+
+
+#Performing PCA
+pc <- prcomp(df.genes)
+
+#Getting data frame to plot from
+df <- as.data.frame(cbind(pc$x[,1:2], rownames(df.genes)))
+df$PC1 <- as.numeric(df$PC1)
+df$PC2 <- as.numeric(df$PC2)
+
+#Plotting
+p2<-ggplot(df, aes(x = PC1, y = PC2)) + 
+  geom_point(aes(fill =df[,3]), shape = 21, size = 5) + 
+  guides(fill=guide_legend(title="Samples")) + 
+  scale_fill_manual(values = hcl.colors(nrow(df), "inferno")) + 
+  theme_classic() 
+
+
+
+p9<-clonalDiversity(Human_CD4_integrated_sc, 
+                cloneCall = "gene", group.by = "Type_Group")
+
+
+p10<-clonalSizeDistribution(Human_CD4_integrated_sc, 
+                       cloneCall = "aa", 
+                       method= "ward.D2", group.by = "Type_Group")
+
+
+#grid.arrange(bp,                                    # bar plot spaning two columns
+#             bxp, sp,                               # box plot and scatter plot
+#             ncol = 2, nrow = 2, 
+#             layout_matrix = rbind(c(1,1), c(2,3)))
+
+
+library(gridExtra)
+library(patchwork)
+pdf("allcd4.PDF", width=24,height=12)
+
+grid.arrange(p1,p1B,p1F,p1G,
+             p1C,p1D,p1E,p2,
+             p3,p4,p5,
+             p6,p7,p8,
+             p9,p10)
+
+dev.off()
