@@ -1,16 +1,2 @@
 
-1:
-ClonalOverlap
-#clonalOverlap(Human_CD4_integrated_sc,group.by = "Type_Group", cloneCall = "aa", method = "morisita",exportTable = TRUE)
-#CONT_CD4_sc INF_CD4_sc VACC_CD4_sc
-#CONT_CD4_sc          NA 0.00071179 0.000604196
-#INF_CD4_sc           NA         NA 0.000811190
-#VACC_CD4_sc          NA         NA          NA
 
-#clonalOverlap(Human_CD8_integrated_sc,group.by = "Type_Group", cloneCall = "aa", method = "morisita", exportTable = TRUE)
-#CONT_CD8_sc  INF_CD8_sc VACC_CD8_sc
-#CONT_CD8_sc          NA 5.37379e-05 0.000000000
-#INF_CD8_sc           NA          NA 0.000216883
-#VACC_CD8_sc          NA          NA          NA
-
-See clonalOverlap.pdf
