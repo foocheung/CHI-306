@@ -148,9 +148,14 @@ Human_CD8_integrated_sc <- as.SingleCellExperiment(Human_CD8_integrated)
 #library(scRepertoire)
 #newList_Type_Group_CD8 <-expression2List(Human_CD8_integrated_sc, split.by =  "Type_Group")
 
-p1<-clonalOverlap(Human_CD4_integrated_sc,group.by = "Type_Group", cloneCall = "aa", method = "morisita",chain="TRB")
+p1<-clonalOverlap(Human_CD4_integrated_sc,group.by = "Type_Group", cloneCall = "aa", method = "morisita",chain="TRB", )
 
 p1B<-clonalOverlap(Human_CD4_integrated_sc,group.by = "BEST.GUESS", cloneCall = "aa", method = "raw",chain="TRB")
+
+p11<-clonalOverlap(Human_CD4_integrated_sc,group.by = "Type_Group", cloneCall = "aa", method = "morisita",chain="TRA", )
+
+p1BB<-clonalOverlap(Human_CD4_integrated_sc,group.by = "BEST.GUESS", cloneCall = "aa", method = "raw",chain="TRA")
+
 
 p1C<-scRepertoire::clonalQuant(Human_CD4_integrated_sc, cloneCall="gene+nt", scale = T, group.by = "BEST.GUESS")
 
@@ -170,6 +175,20 @@ p1G<-clonalCompare(Human_CD4_integrated_sc,
               samples = NULL, 
               cloneCall="aa", 
               graph = "alluvial", group.by = "Type_Group", exportTable=F, chain="TRB") + theme(legend.position="none")
+
+
+
+p1FF<-clonalCompare(Human_CD4_integrated_sc, 
+                   top.clones = 50, 
+                   samples = NULL, 
+                   cloneCall="aa", 
+                   graph = "alluvial", group.by = "BEST.GUESS", exportTable=F, chain="TRA") + theme(legend.position="none")
+
+p1GG<-clonalCompare(Human_CD4_integrated_sc, 
+                   top.clones = 50, 
+                   samples = NULL, 
+                   cloneCall="aa", 
+                   graph = "alluvial", group.by = "Type_Group", exportTable=F, chain="TRA") + theme(legend.position="none")
 
 
 ##p1F<-clonalLength(Human_CD4_integrated_sc, cloneCall="aa", chain = "both", group.by = "Type_Group") 
@@ -199,9 +218,15 @@ p3<-clonalHomeostasis(Human_CD4_integrated_sc,
                   cloneCall = "gene", group.by = "Type_Group")
 
 
+p33<-clonalHomeostasis(Human_CD4_integrated_sc, 
+                      cloneCall = "gene", group.by = "BEST.GUESS")
+
+
 p4<-clonalProportion(Human_CD4_integrated_sc, 
                  cloneCall = "gene",  group.by = "Type_Group")
 
+p44<-clonalProportion(Human_CD4_integrated_sc, 
+                     cloneCall = "gene",  group.by = "BEST.GUESS")
 
 p5<-percentAA(Human_CD4_integrated_sc, 
           chain = "TRB", 
@@ -226,11 +251,11 @@ p8<-vizGenes(Human_CD4_integrated_sc,
 
 
 
-p9<-vizGenes(Human_CD4_integrated_sc, 
-         x.axis = "TRBV",
-         y.axis = "TRBJ",
-         plot = "heatmap",  
-         scale = TRUE,  group.by = "Type_Group")
+#p9<-vizGenes(Human_CD4_integrated_sc, 
+#         x.axis = "TRBV",
+#         y.axis = "TRBJ",
+#         plot = "heatmap",  
+#         scale = TRUE,  group.by = "Type_Group")
 
 
 
@@ -276,7 +301,7 @@ p10<-clonalSizeDistribution(Human_CD4_integrated_sc,
 library(gridExtra)
 library(patchwork)
 pdf("allcd4.PDF", width=24,height=12)
-
+library(cowplot)
 grid.arrange(p1,p1B,p1F,p1G,
              p1C,p1D,p1E,p2,
              p3,p4,p5,
@@ -284,3 +309,26 @@ grid.arrange(p1,p1B,p1F,p1G,
              p9,p10)
 
 dev.off()
+
+
+pdf("allcd4.PDF", width=32,height=16)
+
+par( mar=c(2,2,2,2) )
+
+plot_grid(p1,p1B,p11,p1BB, 
+          p1F,p1G,p1FF,p1GG,
+          p1C,p1D,p1E,p2,
+          p3,p33,p4,p44,p5,
+          p6,p7,p8,
+          p9,p10, 
+          labels = c("clonalOverlap-TRB", "clonalOverlap-TRB", "clonalOverlap-TRA","clonalOverlap-TRA", 
+                      "clonalCompare-TRB", "clonalCompare-TRB", "clonalCompare-TRA", "clonalCompare-TRA",
+                     "clonalQuant","clonalQuant","clonalAbundance","PCA", "clonalHomeostasis","clonalHomeostasis", 
+                     "clonalProportion", "clonalProportion", "percentAA", "positionalEntropy", "positionalProperty", 
+                     "vizGenes", "clonalDiversity", "clonalSizeDistribution"),
+          hjust = 0,vjust = 1, label_x = 0.05, scale=0.90)
+
+dev.off()
+          
+
+saveRDS(combo, "combo.rds")
