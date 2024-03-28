@@ -1,2 +1,36 @@
 
 
+## Step 1:
+https://github.com/foocheung/CHI-306/blob/main/306_2_ver2/TCR/clonal_overlap.R
+
+Will generate plots from scRepertoire package. Not great script, many places hard coded.
+
+Be careful with lines 102-119, this works for 306_2 but will not work correcly for 306_3/4
+
+Will need to use a more spcific 'grep' something like:
+
+cell.names.matrix[grep("-7_",cell.names.matrix)]<-gsub("CD8_Human_","CD8_Human_7_",cell.names.matrix[grep("-7_",cell.names.matrix)])
+cell.names.matrix[grep("-8_",cell.names.matrix)]<-gsub("CD8_Human_","CD8_Human_8_",cell.names.matrix[grep("-8_",cell.names.matrix)])
+cell.names.matrix[grep("-15_",cell.names.matrix)]<-gsub("CD8_Human_","CD8_Human_15_",cell.names.matrix[grep("-15_",cell.names.matrix)])
+cell.names.matrix[grep("-16_",cell.names.matrix)]<-gsub("CD8_Human_","CD8_Human_16_",cell.names.matrix[grep("-16_",cell.names.matrix)])
+cell.names.matrix[grep("-23_",cell.names.matrix)]<-gsub("CD8_Human_","CD8_Human_23_",cell.names.matrix[grep("-23_",cell.names.matrix)])
+cell.names.matrix[grep("-24_",cell.names.matrix)]<-gsub("CD8_Human_","CD8_Human_24_",cell.names.matrix[grep("-24_",cell.names.matrix)])
+
+
+cell.names.matrix[grep("-7",cell.names.matrix)]<-gsub("-7_306_4","",cell.names.matrix[grep("-7",cell.names.matrix)])
+cell.names.matrix[grep("-8",cell.names.matrix)]<-gsub("-8_306_4","",cell.names.matrix[grep("-8",cell.names.matrix)])
+cell.names.matrix[grep("-15",cell.names.matrix)]<-gsub("-15_306_4","",cell.names.matrix[grep("-15",cell.names.matrix)])
+cell.names.matrix[grep("-16",cell.names.matrix)]<-gsub("-16_306_4","",cell.names.matrix[grep("-16",cell.names.matrix)])
+cell.names.matrix[grep("-23",cell.names.matrix)]<-gsub("-23_306_4","",cell.names.matrix[grep("-23",cell.names.matrix)])
+cell.names.matrix[grep("-24",cell.names.matrix)]<-gsub("-24_306_4","",cell.names.matrix[grep("-24",cell.names.matrix)])
+
+
+## Step 2:
+https://github.com/foocheung/CHI-306/blob/main/306_2_ver2/TCR/mappingVDJ_db.R
+
+Will generate file for input to glyph2
+
+## Step 3:
+Use this package for Gliph, its much easier.
+https://github.com/HetzDra/turboGliph/
+
